@@ -28,7 +28,7 @@ namespace TypeListUtilities {
         struct TypeIndexHelper<T, TypeList<First, Rest...>, N> : TypeIndexHelper<T, TypeList<Rest...>, N+1> {};
 
         template <typename T, std::size_t N>
-        struct TypeIndexHelper<T, TypeList<>, N> {};
+        struct TypeIndexHelper<T, TypeList<>, N>:std::integral_constant<int, -1> {};
     }
 
 
