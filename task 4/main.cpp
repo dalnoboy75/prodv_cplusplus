@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cassert>
 
-// MixIn для операторов сравнения
 template <typename Derived>
 class less_than_comparable {
 public:
@@ -26,7 +25,7 @@ public:
     }
 };
 
-// MixIn для подсчета экземпляров
+
 template <typename T>
 class counter {
 protected:
@@ -44,7 +43,6 @@ private:
     inline static size_t count_ = 0;
 };
 
-// Класс Number с MixIn
 class Number : public less_than_comparable<Number>,
                public counter<Number> {
 public:

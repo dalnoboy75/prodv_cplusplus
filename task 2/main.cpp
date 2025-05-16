@@ -45,7 +45,6 @@ namespace TypeListUtilities {
         using Type = First;
     };
 
-// Размер списка
     template <typename List>
     struct ListSize;
 
@@ -53,15 +52,13 @@ namespace TypeListUtilities {
     struct ListSize<TypeList<Types...>>
             : std::integral_constant<std::size_t, sizeof...(Types)> {};
 
-// Проверка наличия типа
+
     template <typename T, typename List>
     struct Contains : details::IsTypeInList<T, List>::type {};
 
-// Получение индекса типа
     template <typename T, typename List>
     struct IndexOf : details::TypeIndexHelper<T, List, 0> {};
 
-// Добавление в начало
     template <typename NewType, typename List>
     struct Prepend;
 
@@ -70,7 +67,7 @@ namespace TypeListUtilities {
         using Result = TypeList<NewType, Types...>;
     };
 
-// Добавление в конец
+
     template <typename NewType, typename List>
     struct Append;
 
@@ -81,26 +78,21 @@ namespace TypeListUtilities {
 
 }
 
-// Тестовые проверки
 using namespace TypeListUtilities;
 
 using EmptyList = TypeList<>;
 using IntList = TypeList<int>;
 using TestList = TypeList<char, double, int, float>;
 
-// Проверка размера
 static_assert(ListSize<EmptyList>::value == 0);
 static_assert(ListSize<TestList>::value == 4);
 
-// Проверка наличия типа
 static_assert(Contains<int, TestList>::value);
 static_assert(!Contains<long, TestList>::value);
 
-// Проверка индекса
 static_assert(IndexOf<double, TestList>::value == 1);
 static_assert(IndexOf<float, TestList>::value == 3);
 
-// Проверка добавления элементов
 using PrependedList = Prepend<bool, TestList>::Result;
 static_assert(std::is_same_v<TypeAt<0, PrependedList>::Type, bool>);
 static_assert(ListSize<PrependedList>::value == 5);
@@ -108,9 +100,8 @@ static_assert(ListSize<PrependedList>::value == 5);
 using AppendedList = Append<long, TestList>::Result;
 static_assert(std::is_same_v<TypeAt<4, AppendedList>::Type, long>);
 
-// Проверка получения элемента
 static_assert(std::is_same_v<TypeAt<2, TestList>::Type, int>);
 
-//int main() {
-//    return 0;
-//}
+int main() {
+    return 0;
+}
